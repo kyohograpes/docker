@@ -1,0 +1,111 @@
+# Building the Docker Image
+
+1. Change the directory to the folder where the Dockerfile is located.
+
+2. Build the docker image:
+   
+   sh
+   $ docker build -t dashboard .
+   
+
+# Pushing Image to Docker Hub
+
+1. Add a tag to your image:
+   
+   sh
+   $ docker image tag dashboard {username}/{reponame}
+   
+
+2. Push image to Docker Hub:
+   
+   sh
+   $ docker push {username}/{reponame}
+   
+
+3. If you’re not logged into Docker Hub:
+   
+   sh
+   $ docker login -u <username> -p <password>
+   
+
+# Setting Up the Kubernetes Cluster
+
+1. Use the command to check that all nodes are in ready state:
+   
+   sh
+   $ kubectl get nodes
+   
+
+# Deploying the Application
+
+1. Create the YAML file for deployment.
+
+2. Deploy the application:
+   
+   sh
+   $ kubectl apply -f deployment.yaml
+   
+
+3. Verify deployments:
+   
+   sh
+   $ kubectl get deployments
+   
+
+4. View pods created by deployment:
+   
+   sh
+   $ kubectl get pods
+   
+
+5. To get a more detailed description:
+   
+   sh
+   $ kubectl describe deployment <deployment_name>
+   
+
+# Configuring Persistent Volumes
+
+1. Create a YAML file to define the persistent volume.
+
+2. Apply persistent volume:
+   
+   sh
+   $ kubectl apply -f pv.yaml
+   
+
+3. Claim the persistent volume:
+   
+   sh
+   $ kubectl apply -f pvc.yaml
+   
+
+4. Verify that the persistent volume has been created:
+   
+   sh
+   $ kubectl get pv
+   
+
+# Pulling and Running the Docker from Docker Hub
+
+1. Pull the docker image from Docker Hub:
+   
+   sh
+   $ docker pull {username}/{reponame}:latest
+   
+
+2. Run the docker image:
+   
+   sh
+   $ docker run -p 8081:8081 -p 5000:5000 {username}/{reponame}
+   
+
+3. To view the application, enter 127.0.0.1:5000 in your browser.
+
+# Commands Used During Deployments
+
+- Expose Deployments to ClusterIP:
+  
+  sh
+  $ kubectl expose deployment <deployment_name> --type=ClusterIP --port=<port> --target-port=<target_port>
+  
